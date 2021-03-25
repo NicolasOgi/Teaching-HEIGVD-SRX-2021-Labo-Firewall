@@ -47,7 +47,7 @@ Par la suite, la mise en pratique d’un pare-feu permettra d’approfondir la c
 
 Ce texte se réfère au laboratoire « Pare-feu » à suivre dans le cadre du cours Sécurité des Réseaux, 2021, version 7.0.  Au cours du temps, il a été rédigé, modifié et amélioré par les co-auteurs suivants : Gilles-Etienne Vallat, Alexandre Délez, Olivia Manz, Patrick Mast, Christian Buchs, Sylvain Pasini, Vincent Pezzi, Yohan Martini, Ioana Carlson, Abraham Rubinstein et Frédéric Saam.
 
-## Echéance 
+## Échéance 
 
 Ce travail devra être rendu le dimanche après la fin de la 2ème séance de laboratoire, soit au plus tard, **le 01 avril 2021, à 23h59.**
 
@@ -143,6 +143,13 @@ _Lors de la définition d'une zone, spécifier l'adresse du sous-réseau IP avec
 |   192.168.100.3   |     192.168.200.3      |        TCP        |   any    |    22    | Accept |
 |   192.168.100.3   |        Firewall        |        TCP        |   any    |    22    | Accept |
 |        any        |          any           |        any        |   any    |   any    |  Drop  |
+
+Les règles concernant le trafic de retour ont volontairement été omises (sauf pour ICMP) car un pare-feu avec état a été mis en place pour ce laboratoire et une règle autorisant ce trafic a été définie. Règle en question :
+
+```bash
+iptables -A FORWARD -m conntrack --ctstate RELATED,ESTABLISHED -j ACCEPT
+```
+Dans le cas d'une configuration de pare-feu sans état ou la volonté d'avoir une granularité plus fine (afin de rediriger le trafic de retour sur une machine en particulier par exemple), ces règles-là doivent bien évidemment être renseignées mais ce n'est pas demandé dans ce laboratoire.
 
 ---
 
@@ -283,11 +290,11 @@ Par exemple :
 ping 8.8.8.8
 ```
 
-Si votre ping passe mais que la réponse contient un _Redirect Host_, ceci indique que votre ping est passé grace à la redirection ICMP, mais que vous n'arrivez pas encore à contacter l'Internet à travers de Firewall. Ceci est donc aussi valable pour l'instant et accepté comme résultat.
+Si votre ping passe mais que la réponse contient un _Redirect Host_, ceci indique que votre ping est passé grâce à la redirection ICMP, mais que vous n'arrivez pas encore à contacter l'Internet à travers de Firewall. Ceci est donc aussi valable pour l'instant et accepté comme résultat.
 
 ---
 
-**LIVRABLE : capture d'écran de votre ping vers l'Internet. Un ping qui ne passe pas ou des réponses containant des _Redirect Host_ sont acceptés.**
+**LIVRABLE : capture d'écran de votre ping vers l'Internet. Un ping qui ne passe pas ou des réponses contenant des _Redirect Host_ sont acceptés.**
 
 Depuis le serveur en DMZ : 
 
@@ -340,7 +347,7 @@ Sauvegarder la configuration du firewall dans le fichier `iptables.conf` :
 iptables-save > iptables.conf
 ```
 
-Récuperer la config sauvegardée :
+Récupérer la config sauvegardée :
 
 ```bash
 iptables-restore < iptables.conf
@@ -619,7 +626,7 @@ ssh root@192.168.200.3
 
 **LIVRABLE : capture d'écran de votre connexion ssh.**
 
-![image-20210318170331866](img/image-20210318170331866.png)
+![image-20210325140332541](img/image-20210325140332541.png)
 
 ---
 
@@ -665,7 +672,7 @@ A présent, vous devriez avoir le matériel nécessaire afin de reproduire la ta
 
 **LIVRABLE : capture d'écran avec toutes vos règles.**
 
-![image-20210318171101695](img/image-20210318171101695.png)
+![image-20210325135849432](img/image-20210325135849432.png)
 
 ---
 
