@@ -432,7 +432,7 @@ traceroute 8.8.8.8
 
 ![image-20210318154133245](img/image-20210318154133245.png)
 
-Pour que le traceroute nous donne ces informations, il a fallu changer la politique de *FORWARD* et *OUTPUT* en la passant à ACCEPT.
+Pour que le traceroute nous donne ces informations, il a fallu changer la politique de *FORWARD* et *OUTPUT* en la passant à ACCEPT, le temps de faire cette commande.
 
 ![image-20210318160539843](img/image-20210318160539843.png)
 
